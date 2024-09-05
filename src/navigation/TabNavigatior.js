@@ -5,6 +5,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import routes from './routes';
 
 import Home from '../screens/Home/Home';
+import Profile from '../screens/Home/Profile';
 
 /* import HomeIcon from '../assets/svg/home-line.svg';
 import HomeFullIcon from '../assets/svg/home-fill.svg';
@@ -44,6 +45,7 @@ const TabNavigator = () => {
         }, */
       })}>
       <Tab.Screen name={routes.HOME} component={Home} />
+      <Tab.Screen name={routes.PROFİLE} component={Profile} />
     </Tab.Navigator>
   );
 };

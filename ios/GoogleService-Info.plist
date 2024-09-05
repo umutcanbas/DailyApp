@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyCUSP8szMYXlHRxLJgtr3rGi33imLY0NGQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>647265823776</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>org.reactjs.native.example.DailyApp</string>
+	<key>PROJECT_ID</key>
+	<string>dailyapp-82237</string>
+	<key>STORAGE_BUCKET</key>
+	<string>dailyapp-82237.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:647265823776:ios:2410d07a3061b3b9c26045</string>
+	<key>DATABASE_URL</key>
+	<string>https://dailyapp-82237-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

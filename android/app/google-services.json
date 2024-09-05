@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "647265823776",
+    "firebase_url": "https://dailyapp-82237-default-rtdb.firebaseio.com",
+    "project_id": "dailyapp-82237",
+    "storage_bucket": "dailyapp-82237.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:647265823776:android:c38989a854a4c391c26045",
+        "android_client_info": {
+          "package_name": "com.dailyapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfspTE2msdIXu0eWXCmfk1lVlAk44HIFc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

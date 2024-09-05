@@ -12,6 +12,8 @@ import routes from '../../navigation/routes';
 
 import {showMessage} from 'react-native-flash-message';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const SingUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -45,12 +47,12 @@ const SingUp = () => {
         message: 'Successfully Created User',
         type: 'success',
       });
-     /*  await AsyncStorage.setItem('isLogged', 'true');  */
+      await AsyncStorage.setItem('isLogged', 'true');
 
-      navigation.navigate(routes.LOGIN);
+      navigation.navigate(routes.TAB_NAVIGATOR);
     } catch (error) {
       showMessage({
-        message: (error.code),
+        message: error.code,
         type: 'danger',
       });
     } finally {
@@ -80,8 +82,8 @@ const SingUp = () => {
           />
 
           <View style={styles.buttonContainer}>
-            <Button title="Go Back"  onPress={goBack} />
-            <Button title="Register" onPress={onPressRegister}  />
+            <Button title="Go Back" onPress={goBack} />
+            <Button title="Register" onPress={onPressRegister} />
           </View>
         </View>
       </SafeAreaView>

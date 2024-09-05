@@ -12,6 +12,8 @@ import routes from '../../navigation/routes';
 
 import {showMessage} from 'react-native-flash-message';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -29,17 +31,13 @@ const Login = () => {
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        showMessage({
-          message: 'Successfully Logged In',
-          type: 'success',
-        });
-       /*  AsyncStorage.setItem('isLogged', 'true'); */
+        AsyncStorage.setItem('isLogged', 'true');
 
         navigation.navigate(routes.TAB_NAVIGATOR);
       })
       .catch(error => {
         showMessage({
-          message: (error.code),
+          message: error.code,
           type: 'danger',
         });
       })

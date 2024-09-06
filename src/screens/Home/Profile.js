@@ -20,7 +20,9 @@ const Profile = () => {
       await AsyncStorage.removeItem('isLogged');
       console.log('User logged out');
       //flashmessage ekle
-      navigation.navigate(routes.LOGIN);
+      navigation.navigate(routes.AUTH_NAVIGATOR, {
+        screen: routes.LOGIN,
+      })
     } catch (error) {
       console.error('Error removing isLogged:', error);
     }

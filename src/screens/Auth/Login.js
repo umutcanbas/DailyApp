@@ -33,7 +33,7 @@ const Login = () => {
       .then(() => {
         AsyncStorage.setItem('isLogged', 'true');
 
-        navigation.navigate(routes.TAB_NAVIGATOR);
+        navigation.navigate(routes.WITH_OUT_TAB);
       })
       .catch(error => {
         showMessage({
@@ -57,6 +57,7 @@ const Login = () => {
             value={password}
             onChangeText={setPassword}
             placeholder="Password"
+            isSecure
           />
 
           <View style={styles.buttonContainer}>

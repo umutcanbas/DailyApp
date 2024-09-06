@@ -1,12 +1,22 @@
-import {StyleSheet, Text, TextInput, View} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
+
+import {StyleSheet, TextInput, TouchableOpacity, View} from 'react-native';
+
+import EyeClose from '../../assets/svg/eye-off-fill.svg';
+import EyeOpen from '../../assets/svg/eye-fill.svg';
 
 const Input = ({
   value,
   onChangeText,
   placeholder,
+  isSecure = false,
   isMultiline = false,
 }) => {
+  const [isSecureText, setSecureText] = useState(isSecure);
+
+  const toggleSecureText = () => {
+    setSecureText(prev => !prev);
+  };
   return (
     <View style={styles.container}>
       <TextInput
@@ -14,10 +24,23 @@ const Input = ({
         value={value}
         onChangeText={onChangeText}
         placeholder={placeholder}
-        placeholderTextColor="white" 
+        placeholderTextColor="white"
         autoCapitalize="none"
         autoCorrect={false}
-        multiline={isMultiline}></TextInput>
+        multiline={isMultiline}
+        secureTextEntry={isSecureText}
+      />
+      {isSecure && (
+        <TouchableOpacity
+          onPress={() => toggleSecureText()}
+          style={styles.icon}>
+          {isSecureText ? (
+            <EyeClose width={24} height={24} />
+          ) : (
+            <EyeOpen width={24} height={24} />
+          )}
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -39,5 +62,8 @@ const styles = StyleSheet.create({
   ınput: {
     width: 300,
     color: 'white',
+  },
+  icon: {
+    padding: 5,
   },
 });

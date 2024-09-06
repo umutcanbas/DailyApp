@@ -49,7 +49,7 @@ const SingUp = () => {
       });
       await AsyncStorage.setItem('isLogged', 'true');
 
-      navigation.navigate(routes.TAB_NAVIGATOR);
+      navigation.navigate(routes.WITH_OUT_TAB);
     } catch (error) {
       showMessage({
         message: error.code,
@@ -73,12 +73,14 @@ const SingUp = () => {
             value={password}
             onChangeText={setPassword}
             placeholder="Password"
+            isSecure
           />
 
           <Input
             value={rePassword}
             onChangeText={setRePassword}
             placeholder="RePassword"
+            isSecure
           />
 
           <View style={styles.buttonContainer}>

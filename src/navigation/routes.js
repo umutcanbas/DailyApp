@@ -1,11 +1,11 @@
 export const routes = {
     AUTH_NAVIGATOR: 'AuthNavigator',
-    TAB_NAVIGATOR: 'TabNavigator',
+    WITH_OUT_TAB: 'WithOutTab',
     SPLASHSCREEN: 'SplashScreen',
     LOGIN: 'Login',
     SINGUP: 'SingUp',
     HOME: 'Home',
-    PROFİLE:'Profile'
+    PROFILE: 'Profile',
   };
   
   export default routes;

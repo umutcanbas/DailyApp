@@ -39,7 +39,9 @@ const Home = () => {
         </View>
 
         <Modal visible={isModalVisible} setVisible={setIsModalVisible} />
-        <DailyCard />
+        <View style={{height: 590}}>
+          <DailyCard />
+        </View>
       </SafeAreaView>
     </LinearGradient>
   );

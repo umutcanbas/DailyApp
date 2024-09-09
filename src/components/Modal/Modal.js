@@ -24,19 +24,6 @@ const ModalTester = ({visible, setVisible}) => {
   const [userId, setUserId] = useState('');
   const [text, setText] = useState('');
 
-  const [day, month, year] = [
-    new Date().getDate(),
-    new Date().getMonth() + 1,
-    new Date().getFullYear(),
-  ];
-
-  const date = `${day}/${month}/${year}`;
-
-  const daily = {
-    text,
-    date,
-  };
-
   useEffect(() => {
     const user = auth().currentUser;
     if (user) {
@@ -54,7 +41,7 @@ const ModalTester = ({visible, setVisible}) => {
       database()
         .ref(`/daily`)
         .child(userId)
-        .push(daily)
+        .push({text, date: new Date().toISOString()})
         .then(() => {
           setVisible(!visible);
           showMessage({
@@ -100,7 +87,9 @@ const ModalTester = ({visible, setVisible}) => {
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}>
           <View style={styles.header}>
-            <Text style={styles.headerText}>{date}</Text>
+            <Text style={styles.headerText}>
+              {new Date().toLocaleDateString()}
+            </Text>
 
             <TouchableOpacity onPress={saveDaily}>
               <Text style={styles.headerText}>Bitti</Text>

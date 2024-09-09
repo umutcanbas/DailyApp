@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -18,6 +18,8 @@ import DailyCard from '../../components/DailyCard/DailyCard';
 import Modal from '../../components/Modal/Modal';
 
 const Home = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
   const navigation = useNavigation();
 
   const goProfile = () => {
@@ -36,7 +38,7 @@ const Home = () => {
           </TouchableOpacity>
         </View>
 
-        <Modal />
+        <Modal visible={isModalVisible} setVisible={setIsModalVisible} />
         <DailyCard />
       </SafeAreaView>
     </LinearGradient>

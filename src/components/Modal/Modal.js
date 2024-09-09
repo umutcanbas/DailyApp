@@ -10,17 +10,32 @@ import {
   Platform,
 } from 'react-native';
 import Modal from 'react-native-modal';
-const deviceSize = Dimensions.get('window');
+
+import PlusIcon from '../../assets/svg/add-line.svg';
 
 import {showMessage} from 'react-native-flash-message';
 
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
 
-const ModalTester = () => {
-  const [isModalVisible, setModalVisible] = useState(false);
+const deviceSize = Dimensions.get('window');
+
+const ModalTester = ({visible, setVisible}) => {
   const [userId, setUserId] = useState('');
   const [text, setText] = useState('');
+
+  const [day, month, year] = [
+    new Date().getDate(),
+    new Date().getMonth() + 1,
+    new Date().getFullYear(),
+  ];
+
+  const date = `${day}/${month}/${year}`;
+
+  const daily = {
+    text,
+    date,
+  };
 
   useEffect(() => {
     const user = auth().currentUser;
@@ -31,11 +46,7 @@ const ModalTester = () => {
 
   const saveDaily = () => {
     if (!text.trim()) {
-      // Eğer text boş ise modal kapatılmayacak
-      showMessage({
-        message: 'Lütfen bir şeyler yazın!',
-        type: 'danger',
-      });
+      setVisible(!visible);
       return;
     }
 
@@ -43,14 +54,14 @@ const ModalTester = () => {
       database()
         .ref(`/daily`)
         .child(userId)
-        .push(text)
+        .push(daily)
         .then(() => {
-          setModalVisible(!isModalVisible);
+          setVisible(!visible);
           showMessage({
             message: 'Eklendi',
             type: 'success',
           });
-          setText(''); // Text temizleniyor
+          setText('');
         })
         .catch(error => {
           showMessage({
@@ -69,19 +80,19 @@ const ModalTester = () => {
   };
 
   const toggleModal = () => {
-    setModalVisible(!isModalVisible);
+    setVisible(!visible);
   };
 
   return (
-    <View style={styles.modalButton}>
-      <TouchableOpacity onPress={toggleModal}>
-        <Text style={styles.modalButtonText}>+</Text>
+    <View>
+      <TouchableOpacity style={styles.modalButton} onPress={toggleModal}>
+        <PlusIcon width={43} height={43} />
       </TouchableOpacity>
 
       <Modal
         style={styles.modal}
         swipeDirection="down"
-        isVisible={isModalVisible}
+        isVisible={visible}
         onBackdropPress={saveDaily}
         onSwipeComplete={saveDaily}>
         <KeyboardAvoidingView
@@ -89,7 +100,7 @@ const ModalTester = () => {
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}>
           <View style={styles.header}>
-            <Text style={styles.headerText}>DATE</Text>
+            <Text style={styles.headerText}>{date}</Text>
 
             <TouchableOpacity onPress={saveDaily}>
               <Text style={styles.headerText}>Bitti</Text>
@@ -113,21 +124,19 @@ const ModalTester = () => {
 export default ModalTester;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   modalButton: {
     backgroundColor: 'blue',
     position: 'absolute',
-    top: 750,
+    top: 600,
     right: 155,
     width: 60,
     height: 60,
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  modalButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 35,
   },
   modal: {
     justifyContent: 'center',

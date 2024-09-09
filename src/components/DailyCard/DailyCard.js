@@ -7,8 +7,9 @@ const DailyCard = () => {
   const [userId, setUserId] = useState(null);
   const [userDaily, setUserDaily] = useState([]);
 
+
   useEffect(() => {
-    const fetchUserDataAndProduct = async () => {
+    const fetchUserData = async () => {
       try {
         const user = auth().currentUser;
         if (user) {
@@ -21,8 +22,6 @@ const DailyCard = () => {
           if (obj === null) {
             return setUserDaily([]);
           }
-
-          // Sadece değerleri al ve userDaily dizisine ata
           const daily = Object.values(obj).map(value => value);
 
           setUserDaily(daily);
@@ -32,10 +31,11 @@ const DailyCard = () => {
       }
     };
 
-    fetchUserDataAndProduct();
+    fetchUserData();
     const onValueChange = database()
       .ref(`/daily/${userId}`)
       .on('value', snapshot => {
+
         const obj = snapshot.val();
         if (obj === null) {
           setUserDaily([]);
@@ -44,22 +44,22 @@ const DailyCard = () => {
         }
       });
 
-    // Clean up the listener on component unmount
     return () => database().ref(`/daily/${userId}`).off('value', onValueChange);
   }, [userId]);
 
-  const DailyCardItem = ({text}) => {
+  const DailyCardItem = ({daily}) => {
     return (
       <View style={styles.itemContainer}>
-        <Text style={styles.itemText}>{text}</Text>
+        <Text style={styles.itemText}>{daily.text}</Text>
+        <Text style={styles.itemText}>{daily.date}</Text>
       </View>
     );
   };
 
   return (
     <View style={styles.container}>
-      {userDaily.map((text, index) => (
-        <DailyCardItem key={index} text={text} />
+      {userDaily.map((daily, index) => (
+        <DailyCardItem key={index} daily={daily} /> // daily objesini aktarıyoruz
       ))}
     </View>
   );

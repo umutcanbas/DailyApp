@@ -6,6 +6,7 @@ export const routes = {
     SINGUP: 'SingUp',
     HOME: 'Home',
     PROFILE: 'Profile',
+    DAILY_FORM:'DailyForm'
   };
   
   export default routes;

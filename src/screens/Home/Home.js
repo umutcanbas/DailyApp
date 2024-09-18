@@ -1,6 +1,5 @@
 import {
   SafeAreaView,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -14,8 +13,10 @@ import {useNavigation} from '@react-navigation/native';
 import routes from '../../navigation/routes';
 
 import Profile from '../../assets/svg/profile-line.svg';
-import DailyCard from '../../components/DailyCard/DailyCard';
-import Modal from '../../components/Modal/Modal';
+
+import DailyList from './DailyList';
+
+import PlusIcon from '../../assets/svg/add-line.svg';
 
 const Home = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -38,10 +39,13 @@ const Home = () => {
           </TouchableOpacity>
         </View>
 
-        <Modal visible={isModalVisible} setVisible={setIsModalVisible} />
-        <View style={{height: 590}}>
-          <DailyCard />
-        </View>
+        <DailyList visible={isModalVisible} setVisible={setIsModalVisible} />
+
+        <TouchableOpacity
+          style={styles.modalButton}
+          onPress={() => navigation.navigate(routes.DAILY_FORM)}>
+          <PlusIcon width={43} height={43} />
+        </TouchableOpacity>
       </SafeAreaView>
     </LinearGradient>
   );
@@ -68,5 +72,16 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     fontSize: 34,
+  },
+  modalButton: {
+    backgroundColor: 'blue',
+    position: 'absolute',
+    top: 730,
+    right: 155,
+    width: 60,
+    height: 60,
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

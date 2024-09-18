@@ -1,95 +1,50 @@
 import {
-  ScrollView,
+  ActionSheetIOS,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
-import auth from '@react-native-firebase/auth';
-import database from '@react-native-firebase/database';
+import React from 'react';
+
 import Dots from '../../assets/svg/dots.svg';
 
-const DailyCard = () => {
-  const [userId, setUserId] = useState(null);
-  const [userDaily, setUserDaily] = useState([]);
+const DailyCard = ({daily, deleteDaily , editDaily}) => {
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const user = auth().currentUser;
-        if (user) {
-          setUserId(user.uid);
+  const onPressOptions = () => {
+    ActionSheetIOS.showActionSheetWithOptions(
+      {
+        options: ['Cancel', 'Delete', 'Edit'],
+        destructiveButtonIndex: 1,
+        cancelButtonIndex: 0,
+        userInterfaceStyle: 'dark',
+      },
+      buttonIndex => {
+        if (buttonIndex === 0) {
 
-          const snapshot = await database()
-            .ref(`/daily/${user.uid}`)
-            .once('value');
-          const obj = snapshot.val();
-          if (obj === null) {
-            return setUserDaily([]);
-          }
-          const daily = Object.values(obj).map(value => value);
-
-          daily.sort((a, b) => {
-            const dateA = new Date(a.date.split('/').reverse().join('-'));
-            const dateB = new Date(b.date.split('/').reverse().join('-'));
-            return dateB - dateA;
-          });
-
-          setUserDaily(daily);
+        } else if (buttonIndex === 1) {
+          deleteDaily(daily);
+        } else if (buttonIndex === 2) {
+          editDaily(daily)
         }
-      } catch (error) {
-        console.error('Failed to fetch user data or products:', error);
-      }
-    };
-
-    fetchUserData();
-    const onValueChange = database()
-      .ref(`/daily/${userId}`)
-      .on('value', snapshot => {
-        const obj = snapshot.val();
-        if (obj === null) {
-          setUserDaily([]);
-        } else {
-          const daily = Object.values(obj);
-
-          daily.sort((a, b) => {
-            const dateA = new Date(a.date.split('/').reverse().join('-'));
-            const dateB = new Date(b.date.split('/').reverse().join('-'));
-            return dateB - dateA;
-          });
-
-          setUserDaily(daily);
-        }
-      });
-
-    return () => database().ref(`/daily/${userId}`).off('value', onValueChange);
-  }, [userId]);
-
-  const DailyCardItem = ({daily}) => {
-    return (
-      <View style={styles.itemContainer}>
-        <View style={styles.textContainer}>
-          <Text style={styles.itemText}>{daily?.text}</Text>
-        </View>
-        <View style={styles.dateContainer}>
-          <Text style={styles.itemDate}>
-            {new Date(daily?.date).toLocaleDateString()}
-          </Text>
-          <TouchableOpacity>
-            <Dots width={25} height={25} />
-          </TouchableOpacity>
-        </View>
-      </View>
+      },
     );
   };
 
   return (
-    <ScrollView style={styles.container}>
-      {userDaily.map((daily, index) => (
-        <DailyCardItem key={index} daily={daily} />
-      ))}
-    </ScrollView>
+    <TouchableOpacity activeOpacity={0.8} style={styles.itemContainer}>
+      <View style={styles.textContainer}>
+        <Text style={styles.itemText}>{daily?.text}</Text>
+      </View>
+      <View style={styles.dateContainer}>
+        <Text style={styles.itemDate}>
+          {new Date(daily?.date).toLocaleDateString()}
+        </Text>
+        <TouchableOpacity onPress={() => onPressOptions(daily)}>
+          <Dots width={25} height={25} />
+        </TouchableOpacity>
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -124,8 +79,5 @@ const styles = StyleSheet.create({
     color: 'darkgrey',
     fontWeight: '500',
     marginHorizontal: 5,
-  },
-  container: {
-    padding: 10,
   },
 });

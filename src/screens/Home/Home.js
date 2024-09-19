@@ -39,7 +39,7 @@ const Home = () => {
           </TouchableOpacity>
         </View>
 
-        <DailyList visible={isModalVisible} setVisible={setIsModalVisible} />
+        <DailyList />
 
         <TouchableOpacity
           style={styles.button}

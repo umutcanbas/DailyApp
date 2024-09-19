@@ -1,4 +1,10 @@
-import {ScrollView, StyleSheet, View, Text} from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  View,
+  Text,
+  ActivityIndicator,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
@@ -7,11 +13,11 @@ import DailyCard from '../../components/DailyCard/DailyCard';
 
 import {useNavigation} from '@react-navigation/native';
 import routes from '../../navigation/routes';
-import { showMessage } from 'react-native-flash-message';
+import {showMessage} from 'react-native-flash-message';
 
 const DailyList = () => {
   const [userId, setUserId] = useState(null);
-  const [userDaily, setUserDaily] = useState([]);
+  const [userDaily, setUserDaily] = useState(null);
 
   const navigation = useNavigation();
 
@@ -119,15 +125,17 @@ const DailyList = () => {
     });
   };
 
+  if (userDaily == null)  return <ActivityIndicator size="large" color='white'/>; // style
+
   return (
     <>
-      {userDaily.length === 0 ? (
+      {userDaily?.length === 0 ? (
         <View style={styles.emptyContainer}>
           <Text style={styles.emptyText}>Bir şeyler yazmaya başlayın...</Text>
         </View>
       ) : (
         <ScrollView style={styles.container}>
-          {userDaily.map((daily, index) => (
+          {userDaily?.map((daily, index) => (
             <DailyCard
               key={index}
               daily={daily}

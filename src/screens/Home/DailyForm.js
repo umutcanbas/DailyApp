@@ -17,10 +17,16 @@ import database from '@react-native-firebase/database';
 const DailyForm = ({navigation, route}) => {
   const [userId, setUserId] = useState('');
   const [text, setText] = useState('');
+  const [selectedScore, setSelectedScore] = useState();
 
   const daily = route.params?.daily;
 
   const dailyDate = daily?.date || new Date();
+
+  const handlePress = score => {
+    setSelectedScore(score);
+    console.log('Selected Score:', score);
+  };
 
   useEffect(() => {
     const user = auth().currentUser;
@@ -39,6 +45,7 @@ const DailyForm = ({navigation, route}) => {
     const dailyObject = {
       text,
       date: new Date(dailyDate).toISOString(),
+      score: selectedScore,
     };
 
     if (userId) {
@@ -88,13 +95,32 @@ const DailyForm = ({navigation, route}) => {
             <Text style={styles.headerText}>Bitti</Text>
           </TouchableOpacity>
         </View>
+        <View style={styles.scoreTextContainer}>
+          <Text style={styles.scoreText}>Güne puan ver</Text>
+        </View>
+
+        <View style={styles.scoreContainer}>
+          {[1, 2, 3, 4, 5].map(score => (
+            <TouchableOpacity
+              key={score}
+              style={[
+                styles.scoreButton,
+                selectedScore == score && {
+                  borderColor: 'white',
+                },
+              ]}
+              onPress={() => handlePress(score)}>
+              <Text style={styles.scoreText}>{score}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
 
         <TextInput
           style={styles.textInput}
           value={text}
           onChangeText={setText}
           placeholder="Yazmaya başlayın..."
-          placeholderTextColor="gray"
+          placeholderTextColor="grey"
           multiline
         />
       </KeyboardAvoidingView>
@@ -108,7 +134,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-
   innerContainer: {
     flex: 1,
     backgroundColor: '#262628',
@@ -132,5 +157,29 @@ const styles = StyleSheet.create({
     fontSize: 18,
     padding: 15,
     marginTop: 20,
+  },
+  scoreContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  scoreButton: {
+    borderRadius: 50,
+    borderWidth: 1,
+    borderColor: 'grey',
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  scoreTextContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  scoreText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 17,
   },
 });

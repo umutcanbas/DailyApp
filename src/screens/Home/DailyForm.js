@@ -17,7 +17,7 @@ import database from '@react-native-firebase/database';
 const DailyForm = ({navigation, route}) => {
   const [userId, setUserId] = useState('');
   const [text, setText] = useState('');
-  const [selectedScore, setSelectedScore] = useState();
+  const [selectedScore, setSelectedScore] = useState(0);
 
   const daily = route.params?.daily;
 
@@ -32,7 +32,10 @@ const DailyForm = ({navigation, route}) => {
     const user = auth().currentUser;
     if (user) {
       setUserId(user.uid);
-      daily !== undefined && setText(daily.text);
+      if (daily !== undefined) {
+        setText(daily?.text);
+        setSelectedScore(daily?.score);
+      }
     }
   }, []);
 

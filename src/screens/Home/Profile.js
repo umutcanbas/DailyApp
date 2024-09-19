@@ -17,6 +17,7 @@ import routes from '../../navigation/routes';
 import LinearGradient from 'react-native-linear-gradient';
 
 import BackArrow from '../../assets/svg/left-arrow.svg';
+import { showMessage } from 'react-native-flash-message';
 
 const Profile = () => {
   const navigation = useNavigation();
@@ -26,7 +27,10 @@ const Profile = () => {
       await auth().signOut();
       await AsyncStorage.removeItem('isLogged');
       console.log('User logged out');
-      //flashmessage ekle
+      showMessage({
+        message: 'Cıkış yapıldı.',
+        type: 'info',
+      });
       navigation.navigate(routes.AUTH_NAVIGATOR, {
         screen: routes.LOGIN,
       });

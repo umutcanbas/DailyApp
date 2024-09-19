@@ -35,13 +35,13 @@ const SingUp = () => {
   const onPressRegister = async () => {
     if (email == '') {
       showMessage({
-        message: 'Email required',
+        message: 'Email gerekli.',
         type: 'danger',
       });
       return;
     } else if (password !== rePassword) {
       showMessage({
-        message: 'Passwords do not match',
+        message: 'Şifreler eşleşmiyor.',
         type: 'danger',
       });
       return;
@@ -54,11 +54,15 @@ const SingUp = () => {
         type: 'success',
       });
       await AsyncStorage.setItem('isLogged', 'true');
+      showMessage({
+        message: 'Üyelik oluşturuldu.',
+        type: 'success',
+      });
 
       navigation.navigate(routes.WITH_OUT_TAB);
     } catch (error) {
       showMessage({
-        message: error.code,
+        message: 'Hata',
         type: 'danger',
       });
     } finally {

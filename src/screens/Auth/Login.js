@@ -38,12 +38,16 @@ const Login = () => {
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         AsyncStorage.setItem('isLogged', 'true');
+        showMessage({
+          message: 'Giriş yapıldı.',
+          type: 'success',
+        });
 
         navigation.navigate(routes.WITH_OUT_TAB);
       })
       .catch(error => {
         showMessage({
-          message: error.code,
+          message: 'Hata',
           type: 'danger',
         });
       })

@@ -5,22 +5,36 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import Button from '../../components/Button/Button';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database';
 
 import {useNavigation} from '@react-navigation/native';
 import routes from '../../navigation/routes';
 import LinearGradient from 'react-native-linear-gradient';
 
 import BackArrow from '../../assets/svg/left-arrow.svg';
-import { showMessage } from 'react-native-flash-message';
+import {showMessage} from 'react-native-flash-message';
 
 const Profile = () => {
   const navigation = useNavigation();
+
+  const [userDaily, setUserDaily] = useState();
+
+  const scores = userDaily?.map(daily => daily.score);
+  const averageScore =
+    userDaily?.length > 0
+      ? scores.reduce((acc, score) => acc + score, 0) / userDaily.length
+      : 0;
+
+  const monthAverageScore =
+    userDaily?.length > 0
+      ? scores.reduce((acc, score) => acc + score, 0) / 30
+      : 0;
 
   const logOut = async () => {
     try {
@@ -35,9 +49,49 @@ const Profile = () => {
         screen: routes.LOGIN,
       });
     } catch (error) {
+      showMessage({
+        message: 'Hata',
+        type: 'danger',
+      });
       console.error('Error removing isLogged:', error);
     }
   };
+
+  //score işlemleri için
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const user = auth().currentUser;
+        if (user) {
+          const snapshot = await database()
+            .ref(`/daily/${user.uid}`)
+            .once('value');
+          const obj = snapshot.val();
+          if (obj === null) {
+            setUserDaily([]);
+          } else {
+            const daily = Object.keys(obj).map(key => ({
+              id: key,
+              ...obj[key],
+            }));
+
+            daily.sort((a, b) => {
+              const dateA = new Date(a.date.split('/').reverse().join('-'));
+              const dateB = new Date(b.date.split('/').reverse().join('-'));
+              return dateB - dateA;
+            });
+
+            setUserDaily(daily);
+          }
+        }
+      } catch (error) {
+        console.error('Failed to fetch user data or products:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
   return (
     <LinearGradient
       colors={['#101020', '#8a42ec']}
@@ -52,7 +106,24 @@ const Profile = () => {
 
           <Text style={styles.headerText}>Profile</Text>
         </View>
-        <Button title="LogOut" onPress={() => logOut()} />
+
+        <View style={styles.scoreContainer}>
+          <View style={styles.scoreHeader}>
+            <Text style={styles.scoreHeaderText}>Ortalama Puan</Text>
+            <Text style={styles.scoreHeaderText}>Aylık Ortalama Puan</Text>
+          </View>
+
+          <View style={styles.scoreInnerContainer}>
+            <Text style={styles.scoreText}>{averageScore}</Text>
+            <Text style={styles.scoreText}>{monthAverageScore.toFixed(2)}</Text>
+          </View>
+        </View>
+
+        <Button
+          buttonStyle={styles.button}
+          title="LogOut"
+          onPress={() => logOut()}
+        />
       </SafeAreaView>
     </LinearGradient>
   );
@@ -78,5 +149,44 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 30,
     marginLeft: 115,
+  },
+  scoreContainer: {
+    backgroundColor: '#fffafa1A',
+    width: 350,
+    height: 250,
+    marginHorizontal: 10,
+    marginVertical: 40,
+    borderRadius: 40,
+
+    alignItems: 'center',
+  },
+  scoreHeader: {
+    width: 300,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: 30,
+  },
+  scoreHeaderText: {
+    color: 'white',
+    fontSize: 17,
+    fontWeight: 'bold',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  scoreInnerContainer: {
+    width: 300,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginVertical: 30,
+  },
+  scoreText: {
+    color: 'black',
+    fontSize: 30,
+    fontWeight: 'bold',
+  },
+  button: {
+    position: 'absolute',
+    top: 730,
+    right: 105,
   },
 });

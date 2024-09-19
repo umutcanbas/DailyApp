@@ -108,22 +108,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  modalButton: {
-    backgroundColor: 'blue',
-    position: 'absolute',
-    top: 600,
-    right: 155,
-    width: 60,
-    height: 60,
-    borderRadius: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modal: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 0,
-  },
+
   innerContainer: {
     flex: 1,
     backgroundColor: '#262628',

@@ -42,7 +42,7 @@ const Home = () => {
         <DailyList visible={isModalVisible} setVisible={setIsModalVisible} />
 
         <TouchableOpacity
-          style={styles.modalButton}
+          style={styles.button}
           onPress={() => navigation.navigate(routes.DAILY_FORM)}>
           <PlusIcon width={43} height={43} />
         </TouchableOpacity>
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 34,
   },
-  modalButton: {
+  button: {
     backgroundColor: 'blue',
     position: 'absolute',
     top: 730,

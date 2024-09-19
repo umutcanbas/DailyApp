@@ -1,4 +1,4 @@
-import {ScrollView, StyleSheet} from 'react-native';
+import {ScrollView, StyleSheet, View, Text} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
@@ -7,6 +7,7 @@ import DailyCard from '../../components/DailyCard/DailyCard';
 
 import {useNavigation} from '@react-navigation/native';
 import routes from '../../navigation/routes';
+import { showMessage } from 'react-native-flash-message';
 
 const DailyList = () => {
   const [userId, setUserId] = useState(null);
@@ -90,12 +91,19 @@ const DailyList = () => {
       .ref(`/daily/${userId}/${daily.id}`)
       .remove()
       .then(() => {
-        //showmeesage
+        showMessage({
+          message: 'Günlük başarıyla silindi.',
+          type: 'success',
+        });
         console.log('Günlük başarıyla silindi.');
 
         setUserDaily(prevDailies => prevDailies.filter(d => d.id !== daily.id));
       })
       .catch(err => {
+        showMessage({
+          message: 'Hata',
+          type: 'error',
+        });
         console.error('Günlük silinirken hata oluştu:', err);
       });
 
@@ -112,16 +120,24 @@ const DailyList = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      {userDaily.map((daily, index) => (
-        <DailyCard
-          key={index}
-          daily={daily}
-          deleteDaily={deleteDaily}
-          editDaily={editDaily}
-        />
-      ))}
-    </ScrollView>
+    <>
+      {userDaily.length === 0 ? (
+        <View style={styles.emptyContainer}>
+          <Text style={styles.emptyText}>Bir şeyler yazmaya başlayın...</Text>
+        </View>
+      ) : (
+        <ScrollView style={styles.container}>
+          {userDaily.map((daily, index) => (
+            <DailyCard
+              key={index}
+              daily={daily}
+              deleteDaily={deleteDaily}
+              editDaily={editDaily}
+            />
+          ))}
+        </ScrollView>
+      )}
+    </>
   );
 };
 
@@ -159,5 +175,15 @@ const styles = StyleSheet.create({
   },
   container: {
     padding: 10,
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emptyText: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    color: 'white',
   },
 });

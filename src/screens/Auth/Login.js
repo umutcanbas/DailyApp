@@ -1,4 +1,10 @@
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {
+  KeyboardAvoidingView,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React, {useState} from 'react';
 
 import auth from '@react-native-firebase/auth';
@@ -49,22 +55,28 @@ const Login = () => {
       colors={['#101020', '#8a42ec']}
       style={styles.linearGradient}>
       <SafeAreaView style={styles.header}>
-        <Text style={styles.headerText}>Login</Text>
+          <Text style={styles.headerText}>Login</Text>
 
-        <View style={styles.container}>
-          <Input value={email} onChangeText={setEmail} placeholder="E-mail" />
-          <Input
-            value={password}
-            onChangeText={setPassword}
-            placeholder="Password"
-            isSecure
-          />
+          <View style={styles.container}>
+        <KeyboardAvoidingView 
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
 
-          <View style={styles.buttonContainer}>
-            <Button title="Sing In" onPress={singIn} />
-            <Button title="Create Account" onPress={goSingUp} />
+            style={{ flex: 1 }}
+        >
+            <Input value={email} onChangeText={setEmail} placeholder="E-mail" />
+            <Input
+              value={password}
+              onChangeText={setPassword}
+              placeholder="Password"
+              isSecure
+            />
+
+            <View style={styles.buttonContainer}>
+              <Button title="Sing In" onPress={singIn} />
+              <Button title="Create Account" onPress={goSingUp} />
+            </View>
+        </KeyboardAvoidingView>
           </View>
-        </View>
       </SafeAreaView>
     </LinearGradient>
   );

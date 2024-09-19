@@ -1,4 +1,10 @@
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {
+  KeyboardAvoidingView,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React, {useState} from 'react';
 
 import auth from '@react-native-firebase/auth';
@@ -68,25 +74,28 @@ const SingUp = () => {
         <Text style={styles.headerText}>SingUp</Text>
 
         <View style={styles.container}>
-          <Input value={email} onChangeText={setEmail} placeholder="E-mail" />
-          <Input
-            value={password}
-            onChangeText={setPassword}
-            placeholder="Password"
-            isSecure
-          />
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={{flex: 1}}>
+            <Input value={email} onChangeText={setEmail} placeholder="E-mail" />
+            <Input
+              value={password}
+              onChangeText={setPassword}
+              placeholder="Password"
+              isSecure
+            />
 
-          <Input
-            value={rePassword}
-            onChangeText={setRePassword}
-            placeholder="RePassword"
-            isSecure
-          />
-
+            <Input
+              value={rePassword}
+              onChangeText={setRePassword}
+              placeholder="RePassword"
+              isSecure
+            />
           <View style={styles.buttonContainer}>
             <Button title="Go Back" onPress={goBack} />
             <Button title="Register" onPress={onPressRegister} />
           </View>
+          </KeyboardAvoidingView>
         </View>
       </SafeAreaView>
     </LinearGradient>

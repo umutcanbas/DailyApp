@@ -9,8 +9,7 @@ import React from 'react';
 
 import Dots from '../../assets/svg/dots.svg';
 
-const DailyCard = ({daily, deleteDaily , editDaily}) => {
-
+const DailyCard = ({daily, deleteDaily, editDaily}) => {
   const onPressOptions = () => {
     ActionSheetIOS.showActionSheetWithOptions(
       {
@@ -21,18 +20,17 @@ const DailyCard = ({daily, deleteDaily , editDaily}) => {
       },
       buttonIndex => {
         if (buttonIndex === 0) {
-
         } else if (buttonIndex === 1) {
           deleteDaily(daily);
         } else if (buttonIndex === 2) {
-          editDaily(daily)
+          editDaily(daily);
         }
       },
     );
   };
 
   return (
-    <TouchableOpacity activeOpacity={0.8} style={styles.itemContainer}>
+    <View style={styles.itemContainer}>
       <View style={styles.textContainer}>
         <Text style={styles.itemText}>{daily?.text}</Text>
       </View>
@@ -44,7 +42,7 @@ const DailyCard = ({daily, deleteDaily , editDaily}) => {
           <Dots width={25} height={25} />
         </TouchableOpacity>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
 

@@ -45,7 +45,7 @@ const Profile = () => {
         message: 'Cıkış yapıldı.',
         type: 'info',
       });
-      navigation.navigate(routes.AUTH_NAVIGATOR, {
+      navigation.replace(routes.AUTH_NAVIGATOR, {
         screen: routes.LOGIN,
       });
     } catch (error) {

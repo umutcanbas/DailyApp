@@ -49,10 +49,6 @@ const SingUp = () => {
     try {
       setLoading(true);
       await auth().createUserWithEmailAndPassword(email, password);
-      showMessage({
-        message: 'Successfully Created User',
-        type: 'success',
-      });
       await AsyncStorage.setItem('isLogged', 'true');
       showMessage({
         message: 'Üyelik oluşturuldu.',
@@ -62,7 +58,7 @@ const SingUp = () => {
       navigation.navigate(routes.WITH_OUT_TAB);
     } catch (error) {
       showMessage({
-        message: 'Hata',
+        message: 'Boş yer olamaz',
         type: 'danger',
       });
     } finally {

@@ -20,7 +20,7 @@ const WithOutTab = () => {
       <Stack.Screen
         name={routes.DAILY_FORM}
         component={DailyForm}
-        options={{presentation: 'modal'}}
+        options={{presentation: 'modal', gestureEnabled: false}}
       />
     </Stack.Navigator>
   );

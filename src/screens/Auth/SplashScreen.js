@@ -22,9 +22,9 @@ const SplashScreen = () => {
   useEffect(() => {
       setTimeout(() => {
       if (isLogged == 'true' ) {
-        navigation.navigate(routes.WITH_OUT_TAB);
+        navigation.replace(routes.WITH_OUT_TAB);
       } else {
-        navigation.navigate(routes.LOGIN);
+        navigation.replace(routes.LOGIN);
       }
     }, 1000);
   }, []);

@@ -43,11 +43,11 @@ const Login = () => {
           type: 'success',
         });
 
-        navigation.navigate(routes.WITH_OUT_TAB);
+        navigation.replace(routes.WITH_OUT_TAB);
       })
       .catch(error => {
         showMessage({
-          message: 'Hata',
+          message: 'Bir hata oluştu',
           type: 'danger',
         });
       })

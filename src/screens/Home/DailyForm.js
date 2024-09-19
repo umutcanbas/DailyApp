@@ -20,6 +20,8 @@ const DailyForm = ({navigation, route}) => {
 
   const daily = route.params?.daily;
 
+  const dailyDate = daily?.date || new Date();
+
   useEffect(() => {
     const user = auth().currentUser;
     if (user) {
@@ -36,11 +38,10 @@ const DailyForm = ({navigation, route}) => {
 
     const dailyObject = {
       text,
-      date: new Date().toISOString(),
+      date: new Date(dailyDate).toISOString(),
     };
 
     if (userId) {
-        
       const databaseRef = database().ref(`/daily/${userId}`);
 
       const request = daily
@@ -51,7 +52,7 @@ const DailyForm = ({navigation, route}) => {
         .then(() => {
           navigation.goBack();
           showMessage({
-            message: 'Eklendi',
+            message: 'Başarılı',
             type: 'success',
           });
           setText('');
@@ -80,7 +81,7 @@ const DailyForm = ({navigation, route}) => {
         keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}>
         <View style={styles.header}>
           <Text style={styles.headerText}>
-            {new Date().toLocaleDateString()}
+            {new Date(dailyDate).toLocaleDateString()}
           </Text>
 
           <TouchableOpacity onPress={saveDaily}>

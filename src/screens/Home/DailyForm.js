@@ -88,7 +88,7 @@ const DailyForm = ({navigation, route}) => {
       <KeyboardAvoidingView
         style={styles.innerContainer}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}>
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
         <View style={styles.header}>
           <Text style={styles.headerText}>
             {new Date(dailyDate).toLocaleDateString()}

@@ -14,9 +14,6 @@ const Input = ({
 }) => {
   const [isSecureText, setSecureText] = useState(isSecure);
 
-  const toggleSecureText = () => {
-    setSecureText(prev => !prev);
-  };
   return (
     <View style={styles.container}>
       <TextInput
@@ -32,7 +29,7 @@ const Input = ({
       />
       {isSecure && (
         <TouchableOpacity
-          onPress={() => toggleSecureText()}
+          onPress={() => setSecureText(prev => !prev)}
           style={styles.icon}>
           {isSecureText ? (
             <EyeClose width={24} height={24} />

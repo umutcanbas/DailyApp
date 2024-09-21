@@ -125,7 +125,8 @@ const DailyList = () => {
     });
   };
 
-  if (userDaily == null)  return <ActivityIndicator size="large" color='white'/>; // style
+  if (userDaily == null)
+    return <ActivityIndicator size="large" color="white" />; // style
 
   return (
     <>

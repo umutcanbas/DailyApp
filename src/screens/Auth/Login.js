@@ -9,9 +9,9 @@ import React, {useState} from 'react';
 
 import auth from '@react-native-firebase/auth';
 
-import LinearGradient from 'react-native-linear-gradient';
 import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
+import LinearGradientWrapper from '../../components/LinearGradientWrapper';
 
 import {useNavigation} from '@react-navigation/native';
 import routes from '../../navigation/routes';
@@ -43,7 +43,7 @@ const Login = () => {
           type: 'success',
         });
 
-        navigation.replace(routes.WITH_OUT_TAB);
+        navigation.replace(routes.HOME_NAVIGATOR);
       })
       .catch(error => {
         showMessage({
@@ -55,43 +55,36 @@ const Login = () => {
   };
 
   return (
-    <LinearGradient
-      colors={['#101020', '#8a42ec']}
-      style={styles.linearGradient}>
+    <LinearGradientWrapper>
       <SafeAreaView style={styles.header}>
-          <Text style={styles.headerText}>Login</Text>
+        <Text style={styles.headerText}>Giriş Yap</Text>
 
-          <View style={styles.container}>
-        <KeyboardAvoidingView 
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-
-            style={{ flex: 1 }}
-        >
+        <View style={styles.container}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={{flex: 1}}>
             <Input value={email} onChangeText={setEmail} placeholder="E-mail" />
             <Input
               value={password}
               onChangeText={setPassword}
-              placeholder="Password"
+              placeholder="Şifre"
               isSecure
             />
 
             <View style={styles.buttonContainer}>
-              <Button title="Sing In" onPress={singIn} />
-              <Button title="Create Account" onPress={goSingUp} />
+              <Button title="Giriş Yap" onPress={singIn} loading={loading} />
+              <Button title="Hesap Oluştur" onPress={goSingUp} />
             </View>
-        </KeyboardAvoidingView>
-          </View>
+          </KeyboardAvoidingView>
+        </View>
       </SafeAreaView>
-    </LinearGradient>
+    </LinearGradientWrapper>
   );
 };
 
 export default Login;
 
 const styles = StyleSheet.create({
-  linearGradient: {
-    flex: 1,
-  },
   header: {
     justifyContent: 'center',
     alignItems: 'center',

@@ -15,7 +15,7 @@ import database from '@react-native-firebase/database';
 
 import {useNavigation} from '@react-navigation/native';
 import routes from '../../navigation/routes';
-import LinearGradient from 'react-native-linear-gradient';
+import LinearGradientWrapper from '../../components/LinearGradientWrapper';
 
 import BackArrow from '../../assets/svg/left-arrow.svg';
 import {showMessage} from 'react-native-flash-message';
@@ -93,9 +93,7 @@ const Profile = () => {
   }, []);
 
   return (
-    <LinearGradient
-      colors={['#101020', '#8a42ec']}
-      style={styles.linearGradient}>
+    <LinearGradientWrapper propStyles={styles.linearGradient}>
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
           <TouchableOpacity
@@ -104,7 +102,7 @@ const Profile = () => {
             <BackArrow width={29} height={29} />
           </TouchableOpacity>
 
-          <Text style={styles.headerText}>Profile</Text>
+          <Text style={styles.headerText}>Hesap</Text>
         </View>
 
         <View style={styles.scoreContainer}>
@@ -114,18 +112,18 @@ const Profile = () => {
           </View>
 
           <View style={styles.scoreInnerContainer}>
-            <Text style={styles.scoreText}>{averageScore}</Text>
+            <Text style={styles.scoreText}>{averageScore.toFixed(2)}</Text>
             <Text style={styles.scoreText}>{monthAverageScore.toFixed(2)}</Text>
           </View>
         </View>
 
         <Button
           buttonStyle={styles.button}
-          title="LogOut"
+          title="Çıkıs Yap"
           onPress={() => logOut()}
         />
       </SafeAreaView>
-    </LinearGradient>
+    </LinearGradientWrapper>
   );
 };
 
@@ -133,7 +131,6 @@ export default Profile;
 
 const styles = StyleSheet.create({
   linearGradient: {
-    flex: 1,
     padding: 10,
   },
   container: {

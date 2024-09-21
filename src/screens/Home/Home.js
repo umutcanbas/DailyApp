@@ -5,9 +5,9 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 
-import LinearGradient from 'react-native-linear-gradient';
+import LinearGradientWrapper from '../../components/LinearGradientWrapper';
 
 import {useNavigation} from '@react-navigation/native';
 import routes from '../../navigation/routes';
@@ -19,8 +19,6 @@ import DailyList from './DailyList';
 import PlusIcon from '../../assets/svg/add-line.svg';
 
 const Home = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
   const navigation = useNavigation();
 
   const goProfile = () => {
@@ -28,9 +26,7 @@ const Home = () => {
   };
 
   return (
-    <LinearGradient
-      colors={['#101020', '#8a42ec']}
-      style={styles.linearGradient}>
+    <LinearGradientWrapper propStyles={styles.linearGradient}>
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.headerText}>Günlük</Text>
@@ -47,7 +43,7 @@ const Home = () => {
           <PlusIcon width={43} height={43} />
         </TouchableOpacity>
       </SafeAreaView>
-    </LinearGradient>
+    </LinearGradientWrapper>
   );
 };
 
@@ -55,7 +51,6 @@ export default Home;
 
 const styles = StyleSheet.create({
   linearGradient: {
-    flex: 1,
     padding: 10,
   },
   container: {

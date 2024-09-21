@@ -9,7 +9,7 @@ import DailyForm from '../screens/Home/DailyForm';
 
 const Stack = createNativeStackNavigator();
 
-const WithOutTab = () => {
+const HomeNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -26,4 +26,4 @@ const WithOutTab = () => {
   );
 };
 
-export default WithOutTab;
+export default HomeNavigator;

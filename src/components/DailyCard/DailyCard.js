@@ -32,7 +32,7 @@ const DailyCard = ({daily, deleteDaily, editDaily}) => {
   return (
     <View style={styles.itemContainer}>
       <View style={styles.textContainer}>
-        <Text style={styles.itemText}>{daily?.text}</Text>
+        <Text ellipsizeMode='tail' numberOfLines={1} style={styles.itemText}>{daily?.text}</Text>
       </View>
       <View style={styles.dateContainer}>
         <Text style={styles.itemDate}>

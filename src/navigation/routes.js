@@ -1,6 +1,6 @@
 export const routes = {
     AUTH_NAVIGATOR: 'AuthNavigator',
-    WITH_OUT_TAB: 'WithOutTab',
+   HOME_NAVIGATOR: 'HomeNavigator',
     SPLASHSCREEN: 'SplashScreen',
     LOGIN: 'Login',
     SINGUP: 'SingUp',

@@ -9,7 +9,7 @@ import React, {useState} from 'react';
 
 import auth from '@react-native-firebase/auth';
 
-import LinearGradient from 'react-native-linear-gradient';
+import LinearGradientWrapper from '../../components/LinearGradientWrapper';
 import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
 
@@ -67,11 +67,9 @@ const SingUp = () => {
   };
 
   return (
-    <LinearGradient
-      colors={['#101020', '#8a42ec']}
-      style={styles.linearGradient}>
+    <LinearGradientWrapper>
       <SafeAreaView style={styles.header}>
-        <Text style={styles.headerText}>SingUp</Text>
+        <Text style={styles.headerText}>Kayıt Ol</Text>
 
         <View style={styles.container}>
           <KeyboardAvoidingView
@@ -81,33 +79,34 @@ const SingUp = () => {
             <Input
               value={password}
               onChangeText={setPassword}
-              placeholder="Password"
+              placeholder="Şifre"
               isSecure
             />
 
             <Input
               value={rePassword}
               onChangeText={setRePassword}
-              placeholder="RePassword"
+              placeholder="Şifre tekrar"
               isSecure
             />
-          <View style={styles.buttonContainer}>
-            <Button title="Go Back" onPress={goBack} />
-            <Button title="Register" onPress={onPressRegister} />
-          </View>
+            <View style={styles.buttonContainer}>
+              <Button title="Geri" onPress={goBack} />
+              <Button
+                title="Kayıt Ol"
+                onPress={onPressRegister}
+                loading={loading}
+              />
+            </View>
           </KeyboardAvoidingView>
         </View>
       </SafeAreaView>
-    </LinearGradient>
+    </LinearGradientWrapper>
   );
 };
 
 export default SingUp;
 
 const styles = StyleSheet.create({
-  linearGradient: {
-    flex: 1,
-  },
   header: {
     justifyContent: 'center',
     alignItems: 'center',

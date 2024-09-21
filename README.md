@@ -1,6 +1,6 @@
 ## Daily App
 <img src='screenshots/Login.png' height='400' /> <img src='screenshots/SingUp.png' height='400' /> <img src='screenshots/Home.png' height='400' />
- <img src='screenshots/Home2.png' height='400' /> <img src='screenshots/Profile.png' height='400' />
+<img src='screenshots/DailyForm.png' height='400' /> <img src='screenshots/Home2.png' height='400' /> <img src='screenshots/Profile.png' height='400' />
 
 # Technology
 - React Native

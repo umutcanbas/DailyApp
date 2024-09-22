@@ -9,7 +9,7 @@
 
 - React Navigation
 - Async Storage
-- FireBase
+- Firebase
 - Flash Message
 - Linear Gradient
 
